@@ -9,12 +9,10 @@ namespace Banken
         public string Name { get; set; }
         public int Balance { get; set; }
 
-        public string ShowCustomer() { return Name +" "+ Balance ; }
+        public string ShowCustomerName() { return Name; }
 
-        internal bool customerList()
-        {
-            throw new NotImplementedException();
-        }
+        public int ShowCustomerBalance() { return Balance; }
+
     }
 
 }

@@ -15,14 +15,54 @@ namespace Banken
             Console.Write("Ange pengar summa: ");
             user.Balance = int.Parse(Console.ReadLine());
             customerList.Add(user);
+    
         }
-        static void ShowCustomers()
+        static void DeleteCustomer()
         {
-            Console.Write(customerList);
+            Console.WriteLine("Ange ID på kontot du vill radera: ");
+            ShowAllCustomers();
+            Console.WriteLine(customerList[(int.Parse(Console.ReadLine()))]);
+            customerList.RemoveAt(int.Parse(Console.ReadLine()));
+        }
+        static void ShowAllCustomers()
+        {
+            int n = 0;
+            Console.WriteLine("ID        Namn");
+            customerList.ForEach(i => Console.WriteLine(n++ +".        "+ i.ShowCustomerName()));
            
         }
+        static void DisplayBalance()
+        {
+            ShowAllCustomers();
+            Console.WriteLine("Ange ID på kontot");
+            int id = int.Parse(Console.ReadLine());
+            int temp = customerList[id].ShowCustomerBalance();
+            Console.WriteLine(temp);
+        }
+        static void Deposit()
+        {
+            ShowAllCustomers();
+            Console.WriteLine("Ange ID på insättnings kontot");
+            int id = int.Parse(Console.ReadLine());
+            Console.WriteLine("Ange insättningsbelopp");
+            int deposit_amount = int.Parse(Console.ReadLine());
+            customerList[id].Balance += deposit_amount;
+            Console.WriteLine((customerList[id].ShowCustomerBalance()));
 
-    
+        }
+        static void Withdrawal()
+        {
+            ShowAllCustomers();
+            Console.WriteLine("Ange ID på kontot");
+            int id = int.Parse(Console.ReadLine());
+            Console.WriteLine("Ange uttagningsbelopp");
+            int withdrawal_amount = int.Parse(Console.ReadLine());
+            customerList[id].Balance += withdrawal_amount;
+            Console.WriteLine("Ditt nya belopp är " + customerList[id].ShowCustomerBalance());
+
+        }
+
+
         static int Menu()
         {
             Console.WriteLine("Välkommen till banken!");
@@ -44,6 +84,10 @@ namespace Banken
         
         static void Main(string[] args)
         {
+            /*
+            bool quit = false;
+            while (quit == false)
+            */
             while (true)
             {
                 int choice = Menu();
@@ -54,19 +98,26 @@ namespace Banken
                         AddCustomer();
                         break;
                     case 2:
+                        DeleteCustomer();
                         break;
                     case 3:
-                        ShowCustomers();
+                        ShowAllCustomers();
                         break;
                     case 4:
+                        DisplayBalance();
                         break;
                     case 5:
+                        Deposit();
                         break;
                     case 6:
+                        Withdrawal();
                         break;
                     case 7:
+                        System.Environment.Exit(1);
+                        /* quit = true */
                         break;
                 }
+                Console.WriteLine("------------------------------");
             }
 
         }
